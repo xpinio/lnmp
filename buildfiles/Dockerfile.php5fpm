@@ -1,0 +1,20 @@
+FROM php:5-fpm-alpine
+MAINTAINER "Stexine" <stexine@gmail.com>
+
+#use aliyun mirrors for chinese server
+#RUN echo "http://mirrors.aliyun.com/alpine/v3.8/main" > /etc/apk/repositories
+#RUN echo "http://mirrors.aliyun.com/alpine/v3.8/community" >> /etc/apk/repositories
+
+RUN apk add --update --no-cache --virtual .build-deps build-base gcc autoconf \ 
+    && apk add --no-cache openldap-dev krb5-dev icu-dev libmcrypt-dev freetype-dev libjpeg-turbo-dev libpng-dev imap-dev libxml2-dev libmemcached-dev \
+    && docker-php-ext-configure imap --with-imap-ssl --with-kerberos \  
+    && docker-php-ext-install ldap intl mysql pdo_mysql mysqli exif sockets gd mcrypt imap zip json mbstring xmlrpc opcache \
+    && pecl install redis \
+    && pecl install xdebug-2.5.5 \
+    && docker-php-ext-enable redis xdebug \
+    && apk del .build-deps \
+    && echo Asia/Shanghai > /etc/timezone
+
+# COPY buildfiles/phpfpm/php.ini /usr/local/etc/php/
+
+CMD ["php-fpm"]

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec -it php7fpm kill -USR2 1
