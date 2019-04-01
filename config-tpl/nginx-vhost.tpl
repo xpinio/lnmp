@@ -74,6 +74,27 @@ server {
         proxy_set_header Host $http_host;
     }
     # -------------------------------------------------
+    
+    # -------------- phpmyadmin --------------
+    location /dbadmin {
+    	alias /home/web/share/dbadmin;
+	location ~ .php$ {
+		include /etc/nginx/fastcgi_params;
+		fastcgi_index index.php;
+		fastcgi_read_timeout 3600s;
+		fastcgi_param  SCRIPT_FILENAME  $request_filename;
+		if (-f $request_filename) {
+		    fastcgi_pass unix:/var/run/php7fpm.prod.sock;
+		}
+	}
+
+	location ~ ^/(.*\.(eot|otf|woff|ttf|css|js|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|xls|tar|bmp))$ {
+	    expires 30d;
+	    log_not_found off;
+            access_log off;
+	}
+    }
+    # -------------- end phpmyadmin ------------------
 
     # serve static files directly
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|eot|ttf|woff|svg|woff2|otf)$ {
