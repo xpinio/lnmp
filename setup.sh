@@ -25,6 +25,8 @@ wget -c https://files.phpmyadmin.net/phpMyAdmin/$PHPMYADMIN_VERSION/phpMyAdmin-$
 mv ./local/web/share/phpMyAdmin-$PHPMYADMIN_VERSION-all-languages ./local/web/share/dbadmin
 mkdir -p ./local/web/share/dbadmin/tmp
 chmod 777 ./local/web/share/dbadmin/tmp -R
+DBADMIN_BLOWFISH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+sed -e "s/--blowfish--/$DBADMIN_BLOWFISH/" ./config-tpl/dbadmin-config.tpl > ./local/web/share/dbadmin/config.inc.php
 
 
 # nginx
