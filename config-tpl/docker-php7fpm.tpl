@@ -31,6 +31,9 @@ RUN echo 'supervisord -c /etc/supervisord.conf' > /run.sh && \
     echo 'php-fpm' >> /run.sh && \
     chmod u+x /run.sh
 
+EXPOSE 9000/tcp
+EXPOSE 9001/tcp
+
 WORKDIR /home/web
 
 ENTRYPOINT ["/bin/sh", "/run.sh"]
