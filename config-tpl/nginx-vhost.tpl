@@ -119,7 +119,7 @@ server {
     #    try_files $uri $uri/ @xbackx;
     #    location ~ \.php$ {
     #        include /etc/nginx/fastcgi_params;
-    #        fastcgi_pass fpm:9001
+    #        fastcgi_pass fpm:9001;
     #        fastcgi_param SCRIPT_FILENAME $request_filename;
     #    }
     #}
