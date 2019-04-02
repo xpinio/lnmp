@@ -27,7 +27,8 @@ server {
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
     #
     location ~ \.php$ {
-        fastcgi_pass   unix:/var/run/php7fpm.sock;
+        #fastcgi_pass   unix:/var/run/php7fpm.sock;
+	fastcgi_pass	fpm:9000;
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include        fastcgi_params;
@@ -84,7 +85,7 @@ server {
 		fastcgi_read_timeout 3600s;
 		fastcgi_param  SCRIPT_FILENAME  $request_filename;
 		if (-f $request_filename) {
-		    fastcgi_pass unix:/var/run/php7fpm.prod.sock;
+		    fastcgi_pass fpm:9001;
 		}
 	}
 
@@ -118,7 +119,7 @@ server {
     #    try_files $uri $uri/ @xbackx;
     #    location ~ \.php$ {
     #        include /etc/nginx/fastcgi_params;
-    #        fastcgi_pass unix:/var/run/php7fpm.prod.sock;
+    #        fastcgi_pass fpm:9001
     #        fastcgi_param SCRIPT_FILENAME $request_filename;
     #    }
     #}
@@ -132,8 +133,8 @@ server {
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
     #
     location ~ \.php$ {
-        fastcgi_pass   unix:/var/run/php7fpm.sock;
-        #fastcgi_pass   unix:/var/run/php7fpm.prod.sock; #production sock with opcache
+        fastcgi_pass   fpm:9000; #production use 9001, dev use 9000
+        #fastcgi_pass   unix:/var/run/php7fpm.prod.sock; #production sock with opcache, dev use php7fpm.sock
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include        fastcgi_params;
