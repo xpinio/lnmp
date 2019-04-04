@@ -17,7 +17,7 @@ mkdir -p /var/local/data/local
 ln -s /var/local/data/local/ ./local
 cp ./local-structure/* ./local -R
 mkdir -p ./local/web/wwwroot/$DOMAIN/$HOST
-echo '<?php phpinfo(); ?>' > ./local/web/wwwroot/$DOMAIN/$HOST/index.php
+echo '<?php phpinfo(15); ?>' > ./local/web/wwwroot/$DOMAIN/$HOST/index.php
 
 # get phpmyadmin
 mkdir -p ./local/web/share
