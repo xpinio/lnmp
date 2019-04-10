@@ -22,8 +22,8 @@ services:
   db-mysql:
     container_name: dbmysql
     image: mysql:5
-    ports:
-      - 3306:3306
+    #ports:
+    #  - 3306:3306
     volumes:
       - ./local/database/mysql:/var/lib/mysql
     environment:
