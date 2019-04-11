@@ -66,14 +66,14 @@ server {
     ssl_ciphers         HIGH:!aNULL:!MD5;
 
     # ----------------- v2ray ------------------------
-    location /publ {
-        proxy_redirect off;
-        proxy_pass http://antiwall:12085;
-	    proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $http_host;
-    }
+    #location /publ {
+    #    proxy_redirect off;
+    #    proxy_pass http://antiwall:12085;
+    #	 proxy_http_version 1.1;
+    #    proxy_set_header Upgrade $http_upgrade;
+    #    proxy_set_header Connection "upgrade";
+    #    proxy_set_header Host $http_host;
+    #}
     # -------------------------------------------------
     
     # -------------- phpmyadmin --------------
