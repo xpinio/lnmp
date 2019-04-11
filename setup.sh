@@ -13,6 +13,14 @@ DOCKER_COMPOSE_FILE=./docker-compose.yml
 DOCKERFILE_ALPINE_FILE=./buildfiles/Dockerfile.alpine-file
 DOCKERFILE_PHP7FPM=./buildfiles/Dockerfile.php7fpm
 
+#generate ssh keys
+ssh-keygen -f ./storage/ssh/ssh_host_rsa_key -N '' -t rsa
+ssh-keygen -f ./storage/ssh/ssh_host_ecdsa_key -N '' -t dsa
+ssh-keygen -f ./storage/ssh/ssh_host_ed25519_key -N '' -t ed25519
+
+#generate nginx keys
+openssl req -x509 -nodes -days 800 -newkey rsa:2048 -keyout ./storage/cert/nginx.key -out ./storage/cert/nginx.crt -config ./storage/cert/ssl-cert.conf
+
 mkdir -p /var/local/data/local
 ln -s /var/local/data/local/ ./local
 cp ./local-structure/* ./local -R
