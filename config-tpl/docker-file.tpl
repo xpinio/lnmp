@@ -9,9 +9,13 @@ RUN apk update && apk add --no-cache openssh vsftpd && \
 RUN mkdir -p /home/web/wwwroot
 
 RUN addgroup -g 5000 vuser
-RUN adduser -h /home/web -s /bin/sh -u 5001 web -G vuser -D
 
+RUN adduser -h /home/web -s /bin/sh -u 5001 web -G vuser -D
 RUN echo "web:--webpassword--" | chpasswd
+
+# add ftp only user
+# RUN adduser -h /home/ftpuser -s /bin/ftp -u 5002 ftpuser -G vuser -D
+# RUN echo "ftpuser:--ftpuserpassword--" | chpasswd
 
 RUN echo '/usr/sbin/sshd -f /etc/ssh/sshd_config' > /run.sh && \
     echo '/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf' >> /run.sh && \
